@@ -35,9 +35,12 @@ use "$datadir/sample_data.dta"
 * if the exposure has multiple levels, saving results can become cumbersome 
 * use stata levelsof to run this through a loop 
 * note, assumes that doi and comp have same number of levels - long term, will introduce error if not true 
+* need extra step to extract local macro to ensure compatability with Stata14 
 
-levelsof($doi)
-local numcat = `r(r)' - 1
+levelsof($doi), local(num)
+local num2 : word count `num'
+local numcat = `num2' - 1
+di `numcat'
 
 /* UNADJUSTED ANALYSES========================================================*/
 * Fit unadjusted conditional poisson models for drug of interest and comparator 
