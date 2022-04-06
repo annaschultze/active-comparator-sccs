@@ -49,15 +49,16 @@ xtpoisson $outcome i.$doi, fe i(patient_id) offset(loginterval) irr
 
 * log scale to enable calculations 
 xtpoisson $outcome i.$doi, fe i(patient_id) offset(loginterval) 
+mat matrix_doi = r(table)
 
 * save a result for each level as a Stata local macro variable to print to results later on 
 forvalues i=1/`numcat' {
 
 	* round and save exponentiated estimates for printing in a table later on
-	local rr_doi_`i' = r(table)[1,`i'+1]
-	local lcl_doi_`i' = r(table)[5,`i'+1]
-	local ucl_doi_`i' = r(table)[6,`i'+1]
-	local se_doi_`i' = r(table)[2,`i'+1]  
+	local rr_doi_`i' = matrix_doi[1,`i'+1]
+	local lcl_doi_`i' = matrix_doi[5,`i'+1]
+	local ucl_doi_`i' = matrix_doi[6,`i'+1]
+	local se_doi_`i' = matrix_doi[2,`i'+1]  
 
 } 
 
@@ -66,14 +67,15 @@ forvalues i=1/`numcat' {
 
 xtpoisson outcome i.$comp, fe i(patient_id) offset(loginterval) irr
 xtpoisson outcome i.$comp, fe i(patient_id) offset(loginterval) 
+mat matrix_comp = r(table)
 
 forvalues i=1/`numcat' {
 	
 	* round and save exponentiated estimates for printing in a table later on
-	local rr_comp_`i' = r(table)[1,`i'+1]
-	local lcl_comp_`i' = r(table)[5,`i'+1]
-	local ucl_comp_`i' = r(table)[6,`i'+1]
-	local se_comp_`i' = r(table)[2,`i'+1]  
+	local rr_comp_`i' = matrix_comp[1,`i'+1]
+	local lcl_comp_`i' = matrix_comp[5,`i'+1]
+	local ucl_comp_`i' = matrix_comp[6,`i'+1]
+	local se_comp_`i' = matrix_comp[2,`i'+1]  
 
 } 
 
@@ -86,15 +88,16 @@ xtpoisson $outcome i.$doi $timevar, fe i(patient_id) offset(loginterval) irr
 
 * log scale to enable calculations 
 xtpoisson $outcome i.$doi $timevar, fe i(patient_id) offset(loginterval) 
+mat matrix_doi_adj = r(table)
 
 * save a result for each level as a Stata local macro variable to print to results later on 
 forvalues i=1/`numcat' {
 	
 	* round and save exponentiated estimates for printing in a table later on
-	local rr_doi_adj_`i' = r(table)[1,`i'+1]
-	local lcl_doi_adj_`i' = r(table)[5,`i'+1]
-	local ucl_doi_adj_`i' = r(table)[6,`i'+1]
-	local se_doi_adj_`i' = r(table)[2,`i'+1]  
+	local rr_doi_adj_`i' = matrix_doi_adj[1,`i'+1]
+	local lcl_doi_adj_`i' = matrix_doi_adj[5,`i'+1]
+	local ucl_doi_adj_`i' = matrix_doi_adj[6,`i'+1]
+	local se_doi_adj_`i' = matrix_doi_adj[2,`i'+1]  
 
 } 
 
@@ -103,14 +106,15 @@ forvalues i=1/`numcat' {
 
 xtpoisson $outcome i.$comp $timevar, fe i(patient_id) offset(loginterval) irr 
 xtpoisson $outcome i.$comp $timevar, fe i(patient_id) offset(loginterval) 
+mat matrix_comp_adj = r(table)
 
 forvalues i=1/`numcat' {
 	
 	* round and save exponentiated estimates for printing in a table later on
-	local rr_comp_adj_`i' = r(table)[1,`i'+1]
-	local lcl_comp_adj_`i' = r(table)[5,`i'+1]
-	local ucl_comp_adj_`i' = r(table)[6,`i'+1]
-	local se_comp_adj_`i' = r(table)[2,`i'+1]  
+	local rr_comp_adj_`i' = matrix_comp_adj[1,`i'+1]
+	local lcl_comp_adj_`i' = matrix_comp_adj[5,`i'+1]
+	local ucl_comp_adj_`i' = matrix_comp_adj[6,`i'+1]
+	local se_comp_adj_`i' = matrix_comp_adj[2,`i'+1]  
 
 } 
 
