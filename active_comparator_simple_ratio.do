@@ -36,8 +36,10 @@ use "$datadir/sample_data.dta"
 * use stata levelsof to run this through a loop 
 * note, assumes that doi and comp have same number of levels - long term, will introduce error if not true 
 
-levelsof($doi)
-local numcat = `r(r)' - 1
+levelsof($doi), local(num)
+local num2 : word count `num'
+local numcat = `num2' - 1
+di `numcat'
 
 /* UNADJUSTED ANALYSES========================================================*/
 * Fit unadjusted conditional poisson models for drug of interest and comparator 
